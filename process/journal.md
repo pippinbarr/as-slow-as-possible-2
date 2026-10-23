@@ -25,3 +25,23 @@ This case would also have a low average velocity because of all the *zeros*. Alt
 So... well what? Am I talking myself out of it? Maybe there's a different route where it's more about challenging folks to take a certain amount of time, trusting in the idea that the slowness threshold would never be crossed by (sane) players? It's a bit of a cheat again though.
 
 There's something interesting and frustrating in this.
+
+## Make some moves -- 22 October 2026
+
+Okay I'm back and wanting to think about practicalities now. I just sat here and slid my index finger along my phone "slowly" and it felt insanely slow to do it over the course of like 10 seconds?
+
+(I also thought to myself in the context of teaching sometimes and making things move very slowly that you do have a thing of saying to yourself "is that moving?" and then you see a little movement and say "yes it is"... just as a comment maybe "against" continuous movement?)
+
+Here are some "versions" of this thing
+
+- A challenge approach where the point is to challenge them to take "this long" to move from start to finish. Ten seconds, twenty, a minute... an escalation that would drive a person insane long before you run into the "Planck length" stuff?
+
+- A "slow as you like" version where you draw a trail and insist on vertical movement, but not on how frequent that movement needs to be, maybe with little timestamp indicators over time? Maybe some sort of rough "constant velocity" requirement involved? (That would maybe be a solution to a lot of this though feels mathsy in a way I'm not exactly thrilled to implement)... almost like a "gambit" where how slow you start is how slow you need to carry on? (Would need some UI to help people manage that)
+
+- A "race" against a computer opponent where you're trying to finish *after* the computer (I like this)
+
+- And then of course we get to multiplayer potentially where you're trying to finish last (could lead to extra-curriculum jostling and stuff but that's also potentially quite funny). With or without the whole enforced average velocity idea this would be pretty good?
+
+(It's possible to imagine a menu where these things are all options?)
+
+The thing of pitching it as going "slower than" something/something else is helpful? It changes the focus away from probably less interesting questions about quanta.
