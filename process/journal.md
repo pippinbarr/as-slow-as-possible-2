@@ -45,3 +45,28 @@ Here are some "versions" of this thing
 (It's possible to imagine a menu where these things are all options?)
 
 The thing of pitching it as going "slower than" something/something else is helpful? It changes the focus away from probably less interesting questions about quanta.
+
+## Objects, Design notes -- 27 October 2026
+
+Made a little tweak to this yesterday when explaining the game to Felix. He thought it was really silly as an idea, but also liked it. I changed the end circle to a simple finish line. Wonder if it makes sense to do that for the start as well... would look kind of nice.
+
+I also made a single index card drawing on Saturday before Open House:
+
+![](./images/2026-10-24-index-card-design-sketch.jpeg)
+
+It's satisfying (and I'm certain I've said this before) that an index card corresponds so well to a single screen design for a mobile game.
+
+Main design thought I had more or less just now is: convert to OOP immediately. I was reading [Rilla's analysis of *It is as if you were on your phone*](https://materializing.design/analyses/5) this morning and it contains a big bit on the moment I converted that game to OOP. Now, that game had a pretty significant conceptual link to OOP so it made extra sense, but I think even for this one just for a bit of tidiness it'll make sense. The only downer is it sucks the game away from being obviously relatable to my students in CART253? So an alternate view is to make it as good as possible *without* OOP? Just because I could? The game is surely simple enough. It might be that I end up kind of faking OOP which might feel a bit stupid, but maybe it's alright.
+
+Other design notes (but thinking I might need an actual design document instead of designing in the journal?):
+
+- Practice mode where you can just run "laps" and get (unofficial hehe) times, maybe extra diagnostics on how you ran the race? Graphs? Stats? (Would I want these everywhere? Too much?)
+- VS mode with AI opponent (different difficulties)
+- VS mode on the same phone
+- Time Attack mode with increasing amounts of time to take
+
+That would be enough modes and they're all more or less the "same" so should be pretty easy to make (ha ha, yes easy to make, I have cursed myself).
+
+What about that whole thing of time-stamped lines to give you a sense? Could just be for practice and time attack?
+
+(Should there be a reward/acknowledgement of *consistent* movement? Consistently slow. Should there be a whole achievements system and a place to view them??? Probably. "A snail's pace" etc.)

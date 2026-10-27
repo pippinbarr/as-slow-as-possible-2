@@ -28,7 +28,12 @@ let start = {
  * Create a canvas
 */
 function setup() {
-    createCanvas(200, 600);
+    createCanvas(430, 932);
+
+
+
+    start.x = width / 2;
+    start.y = height * 0.9;
 }
 
 
@@ -41,7 +46,7 @@ function draw() {
     moveMe();
 
     const d = dist(me.x, me.y, start.x, start.y);
-    if (!start.ready && start.angle < TWO_PI && d < me.size / 2 + start.size / 2) {
+    if (!start.ready && start.angle < TWO_PI && d < me.size / 2 + start.size / 2 && mouseIsPressed) {
         start.angle = constrain(start.angle + 0.05, 0, TWO_PI);
         if (start.angle === TWO_PI) {
             start.textFill = "#0f0";
@@ -94,14 +99,14 @@ function drawEnd() {
     drawingContext.setLineDash([5, 3]);
     noFill();
     stroke("#fff");
-    ellipse(width / 2, 0 + me.size, me.size * 1.5);
+    line(0, height * 0.1, width, height * 0.1)
     pop();
 
     push();
     fill(255)
     textAlign(CENTER, CENTER);
     textSize(18);
-    text("END", width / 2, 0 + me.size);
+    text("FINISH", width / 2, 0 + me.size);
     pop();
 }
 
