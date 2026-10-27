@@ -7,33 +7,27 @@
 
 "use strict";
 
-let me = {
-    x: 100,
-    y: 600,
-    size: 50,
-    fill: "#ffffff"
-};
+const players = [];
+let playerNumber = 0;
 
 let start = {
-    x: 100,
-    y: 500,
-    size: 80,
-    fill: false,
-    angle: 0,
-    textFill: "#ffffff",
+    y: 0.9,
     ready: false
-}
+};
+
+let finish = {
+    y: 0.1
+};
 
 /**
  * Create a canvas
 */
 function setup() {
-    createCanvas(430, 932);
+    createCanvas(windowWidth, windowHeight);
 
-
-
-    start.x = width / 2;
-    start.y = height * 0.9;
+    document.addEventListener('contextmenu', function (e) {
+        return false;
+    });
 }
 
 
@@ -43,77 +37,114 @@ function setup() {
 function draw() {
     background(0);
 
-    moveMe();
-
-    const d = dist(me.x, me.y, start.x, start.y);
-    if (!start.ready && start.angle < TWO_PI && d < me.size / 2 + start.size / 2 && mouseIsPressed) {
-        start.angle = constrain(start.angle + 0.05, 0, TWO_PI);
-        if (start.angle === TWO_PI) {
-            start.textFill = "#0f0";
-            start.ready = true;
-        }
-    }
-    else if (!start.ready && d > me.size / 2 + start.size / 2) {
-        start.angle = constrain(start.angle - 0.05, 0, TWO_PI);
-        if (start.angle === 0) {
-            start.textFill = "#ffffff";
-            start.ready = false;
-        }
-    }
+    updateTouches();
 
     drawStart();
-    drawEnd();
-    drawMe();
-}
-
-function moveMe() {
-    me.x = constrain(mouseX, 0, width);
-    me.y = constrain(mouseY, 0, height);
+    drawFinish();
+    drawPlayers();
 }
 
 function drawStart() {
     push();
-    drawingContext.setLineDash([5, 3]);
+    drawingContext.setLineDash([windowWidth * 0.025, windowWidth * 0.02]);
     noFill();
     stroke("#fff");
-    ellipse(start.x, start.y, start.size);
+    strokeWeight(windowWidth * 0.005);
+    line(0, start.y * height, width, start.y * height);
     pop();
 
     push();
-    // drawingContext.setLineDash([5, 3]);
-    noFill();
-    stroke("#0f0");
-    arc(start.x, start.y, start.size, start.size, -PI, -PI + start.angle);
-    pop();
-
-    push();
-    fill(start.textFill)
+    fill("#fff")
     textAlign(CENTER, CENTER);
-    textSize(18);
-    text("START", start.x, start.y);
+    textSize(windowWidth * 0.05);
+    text("START", width / 2, start.y * height - textAscent());
     pop();
 }
 
-function drawEnd() {
+function drawFinish() {
     push();
-    drawingContext.setLineDash([5, 3]);
+    drawingContext.setLineDash([windowWidth * 0.025, windowWidth * 0.02]);
     noFill();
     stroke("#fff");
-    line(0, height * 0.1, width, height * 0.1)
+    strokeWeight(windowWidth * 0.005);
+    line(0, finish.y * height, width, finish.y * height);
     pop();
 
     push();
-    fill(255)
+    fill("#fff")
     textAlign(CENTER, CENTER);
-    textSize(18);
-    text("FINISH", width / 2, 0 + me.size);
+    textSize(windowWidth * 0.05);
+    text("FINISH", width / 2, finish.y * height - textAscent());
     pop();
 }
 
-function drawMe() {
-    push();
-    fill(me.fill);
-    noStroke();
-    ellipse(me.x, me.y, me.size);
-    pop();
+function drawPlayers() {
+    for (let player of players) {
+        console.log("Drawing ", player.x, player.y, player.size);
+        push();
+        noFill();
+        stroke("#fff");
+        strokeWeight(windowWidth * 0.005);
+        ellipse(player.x, player.y, player.size);
+
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(windowWidth * 0.05);
+        text(player.id, player.x, player.y);
+        pop();
+    }
+}
+
+function touchStarted(event) {
+    for (let touch of touches) {
+        if (players.length === 0) {
+            addPlayer(touch);
+        }
+        else {
+            for (let player of players) {
+                const d = dist(player.x, player.y, touch.x, touch.y);
+                if (d > 50) {
+                    addPlayer(touch);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+function touchEnded(event) {
+    for (let player of players) {
+        let found = false;
+        for (let touch of touches) {
+            const d = dist(player.x, player.y, touch.x, touch.y);
+            if (d < 50) {
+                found = true;
+            }
+        }
+        if (!found) {
+            players.splice(players.indexOf(player), 1);
+        }
+    }
+}
+
+function updateTouches() {
+    for (let touch of touches) {
+        for (let player of players) {
+            const d = dist(player.x, player.y, touch.x, touch.y);
+            if (d > 50) {
+                player.x = touch.x;
+                player.y = touch.y;
+                break;
+            }
+        }
+    }
+}
+
+function addPlayer(touch) {
+    players.push({
+        x: touch.x,
+        y: touch.y,
+        size: 100,
+        id: playerNumber++
+    });
 }
