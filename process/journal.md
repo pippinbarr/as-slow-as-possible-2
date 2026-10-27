@@ -70,3 +70,14 @@ That would be enough modes and they're all more or less the "same" so should be 
 What about that whole thing of time-stamped lines to give you a sense? Could just be for practice and time attack?
 
 (Should there be a reward/acknowledgement of *consistent* movement? Consistently slow. Should there be a whole achievements system and a place to view them??? Probably. "A snail's pace" etc.)
+
+## Conversation with CART253B -- 27 October 2026
+
+- What if you hold down and the ball moves on its own and you swap turns somehow?
+- What if you go backwards and the ball doesn't move back to communicate that?
+- Continuous versus total?
+- Cheating? Physical layer of the game, moving the phone, blocking, ...
+- Distance versus displacement?
+- Time penalties? Movement penalties?
+- Identity switches during play to create a higher level social strategy?
+- Balls move automatically if you aren't moving (or if you remove your finger?)
