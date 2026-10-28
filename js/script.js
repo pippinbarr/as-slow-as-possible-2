@@ -25,9 +25,13 @@ let finish = {
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
-    document.addEventListener('contextmenu', function (e) {
-        return false;
-    });
+    // Phone stuff. Oh god. Taken from Phone game for now.
+    pixelDensity(1);
+
+    // addEventListener('orientationchange', windowResized);
+    // ???
+
+    window.requestAnimationFrame(updateTouches)
 }
 
 
@@ -37,7 +41,6 @@ function setup() {
 function draw() {
     background(0);
 
-    updateTouches();
 
     drawStart();
     drawFinish();
@@ -131,13 +134,14 @@ function updateTouches() {
     for (let touch of touches) {
         for (let player of players) {
             const d = dist(player.x, player.y, touch.x, touch.y);
-            if (d > 50) {
+            if (d < 50) {
                 player.x = touch.x;
                 player.y = touch.y;
                 break;
             }
         }
     }
+    window.requestAnimationFrame(updateTouches);
 }
 
 function addPlayer(touch) {
