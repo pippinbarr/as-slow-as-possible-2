@@ -1,15 +1,20 @@
+/* Set up the body to avoid touch-based problems like
+zooming and panning and text selection etc. */
 body {
   padding: 0;
   margin: 0;
   overflow: hidden;
   user-select: none;
-  touch-action: manipulation;
+  touch-action: none;
 }
 
+/* No scrollbar please, it looks gross */
 body::-webkit-scrollbar {
   display: none;
 }
 
+/* I seem to recall from It is as if you were on your phone
+that this helps us avoid some kinds of unwanted scrolling behaviours */
 canvas {
   position: fixed;
 }
