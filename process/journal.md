@@ -81,3 +81,22 @@ What about that whole thing of time-stamped lines to give you a sense? Could jus
 - Time penalties? Movement penalties?
 - Identity switches during play to create a higher level social strategy?
 - Balls move automatically if you aren't moving (or if you remove your finger?)
+
+## Okay what are we doing for real though -- 30 October 2026
+
+What we are doing for real is kind of milling in place because I haven't been able to make a strong decision on implementation details enough that I can just go go go. I think, given the success of converting past projects to OOP (PONGS and It is as if you were on your phone most notably) I should just do that again now, it might be that thinking in those turns shakes loose some of my reluctance to progress things?
+
+Other than that I just want to implement a thing where you can RACE. What's the minimal set of things for that?
+
+- Playing field, start and finish lines
+- Ability to detect and move fingers
+- Starting protocol (countdown? Lights?)
+- End of race protocol (what happens with the slower player? It's ONLY JUST AS I IMAGINE THIS that I realize that you have effectively "won" when the other player finishes no matter what... which isn't somehow the spirit I'm hoping for? I kind of need to make it though just to have the framework in place...) (Damn though)
+
+I guess that's it, I guess that's it... kind of deflating but I still want to make the basic form of it. I guess setting "better times" remains a way to want to move slower and not just beat someone... and maybe it all works anyway... hmm hmmh mmh m mhm hmmhmhmhmhm. Mmmhmm.
+
+Here's a screen of the current aesthetics, I like them:
+
+![](./images/Screenshot%202026-10-29%20at%2015.42.09.png)
+
+Oh final quick thought: Pace Car ahahahahaha. That could be in the training mode.
