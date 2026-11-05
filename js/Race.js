@@ -1,32 +1,85 @@
+const RaceState = {
+    WAITING_FOR_PLAYERS: "Adding players",
+    STARTING_RACE: "Starting the race",
+    RACING: "The race is on",
+    RACE_OVER: "The race is finished"
+};
+
 class Race {
     constructor() {
 
     }
 
     create() {
-        this.start = {
-            y: 0.9
-        };
-
-        this.finish = {
-            y: 0.1
+        this.race = {
+            numPlayersRequired: 1,
+            startY: 0.9,
+            finishY: 0.1,
+            countdown: 3,
+            state: RaceState.WAITING_FOR_PLAYERS
         };
 
         this.players = [];
         this.playerNumber = 1;
+        this.playerIdentityThreshold = 75;
     }
 
     update() {
         // Racing orange
         background("#ce5f4c");
 
-        // Check if anyone finished the race
-        // this.checkFinish();
 
-        // Draw the elements of the racetrack and players
-        this.drawStart();
-        this.drawFinish();
-        this.drawPlayers();
+        switch (this.race.state) {
+            case RaceState.WAITING_FOR_PLAYERS:
+                this.drawWaiting();
+                // Draw the elements of the racetrack and players
+                this.drawStart();
+                this.drawFinish();
+
+                this.drawPlayers();
+                break;
+
+            case RaceState.STARTING_RACE:
+                this.drawCountdown();
+                // Draw the elements of the racetrack and players
+                this.drawStart();
+                this.drawFinish();
+
+                this.drawPlayers();
+                break;
+
+            case RaceState.RACING:
+                // Check if anyone finished the race
+                this.checkFinish();
+
+                // Draw the elements of the racetrack and players                
+                this.drawFinish();
+                this.drawPlayers();
+                break;
+
+            case RaceState.RACE_OVER:
+                this.drawRaceOver();
+                this.drawPlayers();
+
+                break;
+        }
+
+
+    }
+
+
+    checkFinish() {
+        let finishers = 0;
+        for (let player of this.players) {
+            if (player.y <= this.race.finishY * height) {
+                player.active = false;
+                finishers++;
+            }
+        }
+        if (finishers === this.players.length) {
+            // Everyone finished!
+            this.race.state = RaceState.RACE_OVER;
+        }
     }
 
 
@@ -39,14 +92,14 @@ class Race {
         noFill();
         stroke("#fff");
         strokeWeight(windowWidth * 0.005);
-        line(0, this.start.y * height, width, this.start.y * height);
+        line(0, this.race.startY * height, width, this.race.startY * height);
         pop();
 
         push();
         fill("#fff")
         textAlign(CENTER, CENTER);
         textSize(windowWidth * 0.05);
-        text("START", width / 2, this.start.y * height - textAscent());
+        text("START", width / 2, this.race.startY * height - textAscent());
         pop();
     }
 
@@ -59,14 +112,42 @@ class Race {
         noFill();
         stroke("#fff");
         strokeWeight(windowWidth * 0.005);
-        line(0, this.finish.y * height, width, this.finish.y * height);
+        line(0, this.race.finishY * height, width, this.race.finishY * height);
         pop();
 
         push();
         fill("#fff")
         textAlign(CENTER, CENTER);
         textSize(windowWidth * 0.05);
-        text("FINISH", width / 2, this.finish.y * height - textAscent());
+        text("FINISH", width / 2, this.race.finishY * height - textAscent());
+        pop();
+    }
+
+
+    drawWaiting() {
+        push();
+        fill("#fff")
+        textAlign(CENTER, CENTER);
+        textSize(windowWidth * 0.05);
+        text("WAITING FOR RACERS", width / 2, height / 2);
+        pop();
+    }
+
+    drawCountdown() {
+        push();
+        fill("#fff")
+        textAlign(CENTER, CENTER);
+        textSize(windowWidth * 0.1);
+        text(this.race.countdown, width / 2, height / 2);
+        pop();
+    }
+
+    drawRaceOver() {
+        push();
+        fill("#fff")
+        textAlign(CENTER, CENTER);
+        textSize(windowWidth * 0.1);
+        text("RACE OVER", width / 2, height / 2);
         pop();
     }
 
@@ -101,15 +182,28 @@ class Race {
         noFill();
         stroke("#fff");
         strokeWeight(windowWidth * 0.005);
-        ellipse(_player.x, _player.y, _player.size);
-
-        // Draw the player's id number for reference, presumably don't need this long term
-        // (Though how else will I announce a winner? Hmm.)
-        fill(255);
-        textAlign(CENTER, CENTER);
-        textSize(windowWidth * 0.05);
-        text(_player.id, _player.x, _player.y + _player.size / 1.5);
+        if (!_player.failed) {
+            ellipse(_player.x, _player.y, _player.size);
+        }
+        else {
+            const xSize = _player.size / 20;
+            line(_player.x - _player.size / xSize, _player.y - _player.size / xSize, _player.x + _player.size / xSize, _player.y + _player.size / xSize);
+            line(_player.x + _player.size / xSize, _player.y - _player.size / xSize, _player.x - _player.size / xSize, _player.y + _player.size / xSize);
+        }
         pop();
+
+        if (!_player.failed) {
+            // Draw the player's id number for reference, presumably don't need this long term
+            // (Though how else will I announce a winner? Hmm.)
+            push();
+            fill(255);
+            textAlign(CENTER, CENTER);
+            textSize(windowWidth * 0.05);
+            text(_player.id, _player.x, _player.y + _player.size / 1.5);
+            pop();
+        }
+
+
     }
 
 
@@ -121,9 +215,12 @@ class Race {
      * @returns nothing
      */
     touchStarted(event) {
+        // We only care about touches starting when adding players
+        if (this.race.state !== RaceState.WAITING_FOR_PLAYERS) return;
+
         for (let touch of touches) {
             // If the touch isn't inside the starting area, then it's invalid
-            if (touch.y < this.start.y * height) {
+            if (touch.y < this.race.startY * height) {
                 return;
             }
             // If there are no players, we want to add this one
@@ -160,13 +257,22 @@ class Race {
             // would correspond to the player, that is within a certain threshold
             for (let touch of touches) {
                 const d = dist(player.x, player.y, touch.x, touch.y);
-                if (d < 50) {
+                if (d < this.playerIdentityThreshold) {
                     found = true;
                 }
             }
             // If you can't find a touch for a player, then that player must be gone
             if (!found) {
-                this.players.splice(this.players.indexOf(player), 1);
+                player.active = false;
+                if (this.race.state === RaceState.RACING) {
+                    player.failed = true;
+                }
+                else if (this.race.state === RaceState.STARTING_RACE) {
+                    this.players.splice(this.players.indexOf(player), 1);
+                    if (this.players.length < this.race.numPlayersRequired) {
+                        this.race.state = RaceState.WAITING_FOR_PLAYERS;
+                    }
+                }
             }
         }
     }
@@ -178,10 +284,11 @@ class Race {
         // Go through all touches and all players
         for (let touch of touches) {
             for (let player of this.players) {
+                if (!player.active || this.race.state !== RaceState.RACING) return;
                 // Check if the touch corresponds to the player by a threshold
                 // (Which needs to be improved)
                 const d = dist(player.x, player.y, touch.x, touch.y);
-                if (d < 100) {
+                if (d < this.playerIdentityThreshold) { // Oh this number
                     // If it's this player, update how far the player has travelled
                     player.distance += dist(player.x, player.y, touch.x, touch.y);
                     // Update the player's position to the new touch position
@@ -189,7 +296,7 @@ class Race {
                     player.y = touch.y;
                     // If the player is racing and they've moved far enough
                     // add a point into their trail for display
-                    if (player.y < this.start.y * height && player.distance > player.lastMarker + player.distanceMarkerInterval) {
+                    if (player.distance > player.lastMarker + player.distanceMarkerInterval) {
                         player.lastMarker = player.distance;
                         player.trail.push({ x: player.x, y: player.y });
                     }
@@ -207,6 +314,9 @@ class Race {
      */
     addPlayer(touch) {
         const newPlayer = {
+            active: true,
+            finished: false,
+            failed: false,
             x: touch.x,
             y: touch.y,
             size: 200,
@@ -218,11 +328,36 @@ class Race {
             trail: [],
             // When they joined the game, in case that's useful
             addTimestamp: millis(),
+            // When they officially started
+            startTimestamp: undefined,
+            // When they officially finished
+            finishTimestamp: undefined,
             // Give them an id
             id: this.playerNumber++
         };
 
         // Add player data for a player at this position
         this.players.push(newPlayer);
+
+        // Check if we've got enough players
+        if (this.players.length === this.race.numPlayersRequired) {
+            // Start the race...
+            this.startRaceCountdown();
+        }
+    }
+
+    startRaceCountdown() {
+        this.race.state = RaceState.STARTING_RACE;
+
+        // Now we set up the count down and so on
+        // Be nice to remove the START LINE on start too, there's a funny idea there
+        // about the opposite of trying to get right up on the line, trying to hang back
+        // so you have a tiny bit further to go
+        setInterval(() => {
+            this.race.countdown--;
+            if (this.race.countdown === 0) {
+                this.race.state = RaceState.RACING;
+            }
+        }, 1000);
     }
 }
