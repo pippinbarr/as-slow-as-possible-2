@@ -100,3 +100,9 @@ Here's a screen of the current aesthetics, I like them:
 ![](./images/Screenshot%202026-10-29%20at%2015.42.09.png)
 
 Oh final quick thought: Pace Car ahahahahaha. That could be in the training mode.
+
+## David -- 11 November 2026
+
+>  i did have one idea for your slow racing game - that the timer should be insanely fast-feeling, like down to the microsecond and beyond, and maybe you could do fun presentational things that are over-the-top a la wipeout or something, or persona 5. just stuff where there's all this other smoothness and fancy animating while the core action is still very very slow sluggish haha
+
+> it's a funny idea, curious how you solve it
