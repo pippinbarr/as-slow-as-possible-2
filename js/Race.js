@@ -42,7 +42,7 @@ class Race {
             // When they officially finished
             finishTimestamp: undefined,
             // Give them an id
-            id: -1,
+            id: "COM",
             // For perlin noise varying their x position for a little bit less relentlessness
             perlinX: 0,
             perlinSpeed: 0.01
