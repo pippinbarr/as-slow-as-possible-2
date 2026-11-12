@@ -22,12 +22,36 @@ class Race {
         this.players = [];
         this.playerNumber = 1;
         this.playerIdentityThreshold = 75;
+
+        this.com = {
+            active: true,
+            finished: false,
+            failed: false,
+            startX: 2 * width / 3,
+            x: 2 * width / 3,
+            y: (this.race.startY + 0.05) * height,
+            size: 200,
+            // Properties to track how far the player has moved
+            // and to maintain a trace of their trajectory
+            distance: 0,
+            lastMarker: 0,
+            distanceMarkerInterval: 20,
+            trail: [],
+            // When they officially started
+            startTimestamp: undefined,
+            // When they officially finished
+            finishTimestamp: undefined,
+            // Give them an id
+            id: -1,
+            // For perlin noise varying their x position for a little bit less relentlessness
+            perlinX: 0,
+            perlinSpeed: 0.01
+        };
     }
 
     update() {
         // Racing orange
         background("#ce5f4c");
-
 
         switch (this.race.state) {
             case RaceState.WAITING_FOR_PLAYERS:
@@ -54,6 +78,7 @@ class Race {
 
                 // Draw the elements of the racetrack and players                
                 this.drawFinish();
+                this.moveCom();
                 this.drawPlayers();
                 break;
 
@@ -151,6 +176,27 @@ class Race {
         pop();
     }
 
+    /**
+     * Moves the computer player... a bit...
+     */
+    moveCom() {
+        const nextY = this.com.y - random(0.25, 0.5);
+        const nextX = map(noise(this.com.perlinX), 0, 1, this.com.startX - 20, this.com.startX + 20);
+        this.com.perlinX += this.com.perlinSpeed;
+
+        // If it's this player, update how far the player has travelled
+        this.com.distance += dist(this.com.x, this.com.y, nextX, nextY);
+        // Update the player's position to the new touch position
+        this.com.x = nextX;
+        this.com.y = nextY;
+        // If the player is racing and they've moved far enough
+        // add a point into their trail for display
+        if (this.com.distance > this.com.lastMarker + this.com.distanceMarkerInterval) {
+            this.com.lastMarker = this.com.distance;
+            this.com.trail.push({ x: this.com.x, y: this.com.y });
+        }
+    }
+
 
     /**
      * Draw all the players and their trails
@@ -160,6 +206,8 @@ class Race {
         for (let player of this.players) {
             this.drawPlayer(player);
         }
+
+        this.drawPlayer(this.com);
     }
 
 
@@ -199,7 +247,7 @@ class Race {
             fill(255);
             textAlign(CENTER, CENTER);
             textSize(windowWidth * 0.05);
-            text(_player.id, _player.x, _player.y + _player.size / 1.5);
+            text(_player.id, _player.x, _player.y);
             pop();
         }
 
