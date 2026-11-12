@@ -106,3 +106,31 @@ Oh final quick thought: Pace Car ahahahahaha. That could be in the training mode
 >  i did have one idea for your slow racing game - that the timer should be insanely fast-feeling, like down to the microsecond and beyond, and maybe you could do fun presentational things that are over-the-top a la wipeout or something, or persona 5. just stuff where there's all this other smoothness and fancy animating while the core action is still very very slow sluggish haha
 
 > it's a funny idea, curious how you solve it
+
+## Dana (and David) -- 12 November 2026
+
+### Dana
+
+Had a chance to talk to Dana this morning and present some of the woes of working on this game with her. It was the same old story but helpful to just show it to somebody and both pitch the core idea (which still works - it's inherently funny, although that might be because it inherently doesn't work?), and also to get into some of the stuff that I remain stuck on (though perhaps mostly I'm stuck because I haven't had any time to give it attention to).
+
+Dana suggested the idea of "health" in terms of enforcing movement, like your circle shrinks and you're eventually disqualified if you don't keep moving. The question remains both about negative movement (going backwards) and about the fact this establishes a concrete "slowest" speed you could move at (waiting for the circle to almost disappear then moving one pixel or whatever the smallest detectable unit is). It *would* solve the multiplayer thing a bit in that you'd both be moving, though in essence you'd still both be trying to move at the same speed? (Which still seems odd... is this just inherently a single player game? Is the funnier thing to present it as all this high level training and then you challenge someone to a race and it's all about how prepared you both are to move as slowly as necessary and you can defeat somebody by basically exerting the patience you've acquired? There could be something to that...)
+
+(Visions of a future self looking fondly on at this tortured version of myself who hasn't solved this problem? Assuming I ever solve this problem?)
+
+### (and David)
+
+David's thing is really interesting because it's a totally different tonal direction for me to seriously consider. A version where you almost distract from or conterbalance the slowness with a "fastness" of interface and instruction design. Emphasizing time passing, speed of movement etc. as something I suppose for the player to push back against, have a sense of friction? Very juice interface reactions to slowness, more extravagant the slower you go. "NOW THAT'S SLOW!!" exploding onto the screen as you move a single pixel in half an hour... "SLOWLICIOUS!!!!" and so on. 
+
+It *is* funny. But it does also detract or at least pull away from my original thinking about a sort of "purity" of slowness? But maybe it's the humour I need to activate the project in my mind? It won't be able to be beautiful or "profound" in this telling though... is that what it's about? Or not? SNAILTACULAR!!! And so on.
+
+SLOWTALITY.
+
+Hmmm. Yes explicit humour is tempting. I mean I was also leaning toward that a bit, in a more repressed way, with things like a time trial against a snail's pace.
+
+I guess it makes some sense even with Dana's framing, or my framing of her framing, where it becomes about PRACTICING slowness in a sort of athletic way? (Is this exactly the same story as *It is as if you were doing work* where I make an interface/tonal shift... away from the "alien language" I have right now?)
+
+Racing lanes?
+
+And again, if the core of the thing is practicing being slow on your phone, then the experience of challenging someone else to a race of slowness would at least feel kind of different? You could even lean into the weird realization of just... oh I guess I shouldn't move at all? (But if the game's voice is barking at you to get a [slow] move on?)
+
+It might be that I need to prototype a version with an "AI" to race against and thing a bit about how that feels in a few scenarios. Will maybe do that next as I continue to probe the whole question of tone.
