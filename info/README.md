@@ -8,9 +8,7 @@
 
 *How slow can you go?*
 
-*As Slow As Possible 2* is is slow too.
-
-*It is as if you were on your phone* was created using [p5](https://p5js.org).
+*As Slow As Possible 2* is slow too. It was created using [p5](https://p5js.org).
 
 ## Press
 
